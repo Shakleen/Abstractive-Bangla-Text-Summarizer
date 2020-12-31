@@ -1,6 +1,6 @@
 import tensorflow as tf
 
-class PointwiseFeedForwardNetwork:
+class PointwiseFeedForwardNetwork(tf.keras.layers.Layer):
     def __init__(self, d_model, dff):
         super(PointwiseFeedForwardNetwork, self).__init__()
         self.dense_1 = tf.keras.layers.Dense(dff, activation="relu")
