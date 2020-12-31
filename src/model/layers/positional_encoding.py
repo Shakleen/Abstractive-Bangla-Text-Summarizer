@@ -1,4 +1,5 @@
 import tensorflow as tf
+import numpy as np
 
 
 def get_angles(position, i, d_model):
@@ -23,4 +24,3 @@ def positional_encoding(position, d_model):
     pos_encoding = angle_rads[np.newaxis, ...]
 
     return tf.cast(pos_encoding, dtype=tf.float32)
-
