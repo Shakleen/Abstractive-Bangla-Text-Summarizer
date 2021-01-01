@@ -1,6 +1,7 @@
 import tensorflow as tf
 from .modules.encoder import Encoder
 from .modules.decoder import Decoder
+from .create_mask import create_masks
 
 
 class Transformer(tf.keras.Model):
@@ -44,19 +45,19 @@ class Transformer(tf.keras.Model):
         self,
         inp,
         tar,
-        training,
         enc_padding_mask,
         look_ahead_mask,
-        dec_padding_mask
+        dec_padding_mask,
+        training=False,
     ):
-        enc_output = self.encoder(inp, training, enc_padding_mask)
+        enc_output = self.encoder(inp, enc_padding_mask, training)
 
         dec_output, attention_weights = self.decoder(
             tar,
             enc_output,
-            training,
             look_ahead_mask,
-            dec_padding_mask
+            dec_padding_mask,
+            training,
         )
 
         final_output = self.final_layer(dec_output)

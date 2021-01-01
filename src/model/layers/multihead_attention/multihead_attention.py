@@ -2,6 +2,14 @@ import tensorflow as tf
 from .scaled_dot_product_attention import ScaledDotProductAttention
 
 
+def _get_dense_layer(size, name):
+    return tf.keras.layers.Dense(
+        size,
+        kernel_initializer=tf.keras.initializers.glorot_normal(),
+        name=name
+    )
+
+
 class MultiHeadAttention(tf.keras.layers.Layer):
     def __init__(self, d_model, num_heads):
         super(MultiHeadAttention, self).__init__()
@@ -12,23 +20,19 @@ class MultiHeadAttention(tf.keras.layers.Layer):
 
         self.depth = d_model // self.num_heads
 
-        self.wq = tf.keras.layers.Dense(d_model)
-        self.wk = tf.keras.layers.Dense(d_model)
-        self.wv = tf.keras.layers.Dense(d_model)
+        self.wq = _get_dense_layer(d_model, "query")
+        self.wk = _get_dense_layer(d_model, "key")
+        self.wv = _get_dense_layer(d_model, "value")
 
         self.scaled_dot_product_attention = ScaledDotProductAttention()
         self.dense = tf.keras.layers.Dense(d_model)
 
-    def split_heads(self, x, batch_size):
-        x = tf.reshape(x, (batch_size, -1, self.num_heads, self.depth))
-        return tf.transpose(x, perm=[0, 2, 1, 3])
-
-    def call(self, v, k, q, mask):
+    def call(self, v, k, q, mask, training=False):
         batch_size = tf.shape(q)[0]
 
-        q = self.wq(q)
-        k = self.wk(k)
-        v = self.wv(v)
+        q = self.wq(q, training=training)
+        k = self.wk(k, training=training)
+        v = self.wv(v, training=training)
 
         q = self.split_heads(q, batch_size)
         k = self.split_heads(k, batch_size)
@@ -44,6 +48,10 @@ class MultiHeadAttention(tf.keras.layers.Layer):
             scaled_attention,
             (batch_size, -1, self.d_model)
         )
-        output = self.dense(concat_attention)
+        output = self.dense(concat_attention, training=training)
 
         return output, attention_weights
+
+    def split_heads(self, x, batch_size):
+        x = tf.reshape(x, (batch_size, -1, self.num_heads, self.depth))
+        return tf.transpose(x, perm=[0, 2, 1, 3])
