@@ -1,5 +1,5 @@
 import tensorflow as tf
-from .multihead_attention.multihead_attention import MultiHeadAttention
+from .multihead_attention import MultiHeadAttention
 from .pointwise_feed_forward_network import PointwiseFeedForwardNetwork
 
 
