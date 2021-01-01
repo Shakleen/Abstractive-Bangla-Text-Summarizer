@@ -1,0 +1,18 @@
+{
+    "BUFFER_SIZE": 8192,
+    "BATCH_SIZE": 32,
+    "EPOCHS": 1000,
+    "NUM_LAYERS": 4,
+    "D_MODEL": 128,
+    "DFF": 512,
+    "NUM_HEADS": 8,
+    "SUMMARY_LENGTH": 16,
+    "TEXT_LENGTH": 512,
+    "START_TOKEN": 1,
+    "END_TOKEN": 2,
+    "VOCAB_SIZE": 10000,
+    "ENCODER_VOCAB_SIZE": 10000,
+    "DECODER_VOCAB_SIZE": 10000,
+    "VOCAB_DIM": 100,
+    "CKPT_TO_KEEP": 50
+}
