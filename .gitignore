@@ -1,6 +1,7 @@
 **/venv
 **/__pycache__
 **/.ipynb_checkpoints
-**/.vscode
+**/.conda
 **/dataset
+**/.vscode
 **/model_dir

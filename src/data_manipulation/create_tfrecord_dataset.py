@@ -1,13 +1,15 @@
 import tensorflow as tf
 
 def create_tfrecord_dataset(
-    tfrecord_files,
-    batch_size,
-    cache_buffer_size,
-    prefetch_buffer_size,
-    input_feature_length,
-    output_feature_length,
+    tfrecord_files,          # TFRecord file list
+    batch_size,              # each batch in the dataset will contain 32 examples by default
+    cache_buffer_size,       # 8192 dataset elements will be buffered for shuffling to achieve randomization by default
+    prefetch_buffer_size,    # number of elements needs to be buffered will be dynamically tuned
+    input_feature_length,    # article size is limited to 512 words by default
+    output_feature_length,   # summary size is limited to 12 words by default
 ):
+
+
   dataset = tf.data.TFRecordDataset(filenames = [tfrecord_files])
 
   # Create a dictionary describing the features.
