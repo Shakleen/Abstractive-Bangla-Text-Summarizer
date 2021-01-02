@@ -1,5 +1,9 @@
+# This custom Scheduler adjusts learning rate over the time
+# for the Adam optimizer changes
+
 import tensorflow as tf
 
+# subclass for creating custom learning rate schedule
 class CustomSchedule(tf.keras.optimizers.schedules.LearningRateSchedule):
     def __init__(self, d_model, warmup_steps=4000):
         super(CustomSchedule, self).__init__()

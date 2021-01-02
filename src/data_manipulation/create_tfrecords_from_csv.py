@@ -11,7 +11,6 @@ python3 src/data_manipulation/create_tfrecords_from_csv.py \
 
 import os
 import argparse
-import pickle as pkl
 import time
 import traceback
 
