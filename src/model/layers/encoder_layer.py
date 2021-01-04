@@ -2,7 +2,7 @@
 
 import tensorflow as tf
 from .multihead_attention import MultiHeadAttention
-from .pointwise_feed_forward_network import PointwiseFeedForwardNetwork
+from .positionwise_feed_forward_network import PositionwiseFeedForwardNetwork
 
 
 def _get_layer_norm():
@@ -14,7 +14,7 @@ class EncoderLayer(tf.keras.layers.Layer):
         super(EncoderLayer, self).__init__()
 
         self.mha = MultiHeadAttention(d_model, num_heads)
-        self.ffn = PointwiseFeedForwardNetwork(d_model, dff)
+        self.ffn = PositionwiseFeedForwardNetwork(d_model, dff)
 
         self.layernorm1 = _get_layer_norm()
         self.layernorm2 = _get_layer_norm()
