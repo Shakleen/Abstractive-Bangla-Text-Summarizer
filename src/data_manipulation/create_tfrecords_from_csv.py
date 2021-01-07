@@ -1,25 +1,27 @@
-"""Python script to process and create tfrecords.
+"""Python script to read csv files and to create tfrecords.
 
-The script reads csv file from *input_csv_dir*. The records are split into train and test set.
+This script reads csv file from *input_csv_dir*. The records are split into train and test set.
 *split_ratio* amount of records from each csv_file are used for generating training tfrecords.
 
 Command:
 python3 src/data_manipulation/create_tfrecords_from_csv.py \
---input_csv_dir /run/media/ishrak/Ishrak/IUT/Thesis/dataset/csvs/ \
---output_dir /run/media/ishrak/Ishrak/IUT/Thesis/dataset/tfrecords/
+--input_csv_dir $CSV_DIR \
+--output_dir $OUTPUT_DIR
 """
 
 import os
-import argparse
 import time
+import argparse
 import traceback
 
 import numpy as np
 import pandas as pd
-import tensorflow as tf
 from bpemb import BPEmb
+import tensorflow as tf
 
-
+# argument parser traverse through the arguments passed
+# to the script executing command and append
+# them to the ArgumentParser object.
 def parse_args() -> dict:
     ap = argparse.ArgumentParser()
     ap.add_argument(
@@ -66,7 +68,7 @@ def parse_args() -> dict:
         type=int,
         default=512,
         required=False,
-        help="Max text length"
+        help="Max content length"
     )
     ap.add_argument(
         "-sp",
@@ -80,6 +82,7 @@ def parse_args() -> dict:
     return vars(ap.parse_args())
 
 
+# list the file csvs from the provided csv directory
 def get_csv_file_paths() -> list:
     csv_files = [
         os.path.join(CSV_DIR, file_name)
