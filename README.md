@@ -18,6 +18,7 @@ An **abstractive text summarizer** built for Bangla language powered by a **Tran
       </ul>
     </li>
     <li><a href="#dataset">Dataset</a></li>
+    <li><a href="#checkpoint">Checkpoint</a></li>
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
@@ -61,6 +62,11 @@ To train the transformer model we created a text corpus consisting of over a 1 m
 news publisher Prothom-Alo. We made the dataset open-source and it can be found at Kaggle called [Prothom Alo News Articles](https://www.kaggle.com/datasets/ishfar/prothom-alo-news-articles). The dataset was mined using [this tool](https://github.com/ahmedsadman/news-scraper) created by my teammate [Ahmed Sadman Muhib](https://github.com/ahmedsadman/news-scraper)
 
 <p align="right">(<a href="#abstractive-bangla-text-summarizer">back to top</a>)</p>
+
+***
+
+# Checkpoint
+Saved weights for the transformer model can be found [here](https://drive.google.com/drive/folders/1QN5ZZ6NossaElW6LHR4YVTTwKhmDKB9e?usp=sharing).
 
 ***
 
